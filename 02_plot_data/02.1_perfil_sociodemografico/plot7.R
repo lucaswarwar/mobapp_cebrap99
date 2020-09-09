@@ -1,85 +1,35 @@
-plot7_rm <-
-  # proporção de pessoas que consomem transporte que fazem algum uso de app
-  pof_z %>% 
-  group_by(quintil_renda, RM) %>% 
-  mutate(n_quintil = n_distinct(ID_MORADOR)) %>% 
-  ungroup() %>% 
-  group_by(quintil_renda, Modo, RM) %>% 
-  summarise(prop = mean(n_distinct(ID_MORADOR)/n_quintil)) %>% 
-  filter(Modo == 'Aplicativo')
-plot7b_rm <-
-  # proporção de pessoas que consomem transporte que fazem algum uso de app
-  pof_z %>% 
-  group_by(RM) %>% 
-  mutate(n_quintil = n_distinct(ID_MORADOR)) %>% 
-  ungroup() %>% 
-  group_by(Modo, RM) %>% 
-  summarise(prop = mean(n_distinct(ID_MORADOR)/n_quintil)) %>% 
-  filter(Modo == 'Aplicativo')
-plot7_rm <-
-  plot7b_rm %>% 
-  rename(media = prop) %>% 
-  right_join(plot7_rm, by = 'RM')
-p1<-
-plot7_rm  %>% 
-  filter(RM!='Zona Rural' & RM!='Brasil Urbano') %>% 
-  ggplot(aes(prop, reorder(RM,media))) +
-  geom_path(aes(group = RM),
-            linetype = 'dotted') +
-  geom_point(
-    aes(fill = as.factor(quintil_renda)),
-    shape = 21, size = 3, alpha = 1) +
-  geom_point(
-    aes(media, reorder(RM,media)),
-    shape = 21, size = 3, alpha = 1, fill = 'black') +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.21)) +
-  scale_fill_brewer(palette = 'Spectral') +
-  labs(fill = "Quintil de Renda", y = "",x='% da população que consome ride-haling') +
-  theme_minimal() +
-  theme(
-    panel.grid.minor = element_blank(),
-    legend.position = 'top',
-    #axis.text.x = element_blank(),
-    #axis.title.x = element_blank(),
-    axis.title.y = element_text(angle = 0))
+######################
 
-RM<-fread("df's/rm.csv")
-p2<-
-  RM %>% 
-  filter(Modo == 'Aplicativo') %>% 
-  filter(RM!='Zona Rural' & RM!='Brasil Urbano') %>% 
-  ggplot(aes(reorder(RM,frequencia),share)) +
-  geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
-  theme_minimal() +
-  scale_y_continuous(labels = scales::percent) +
-  labs(x="", y="% dos usuários de ride-hailing") +
-  theme(legend.position = 'none') +
-  coord_flip()
-plot7b <-
-  pof_z %>% 
-  filter(Modo == 'Aplicativo') %>% 
+source("00_setup.R.R")
+
+### Recover dataset ###
+
+pof_data <- 
+  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+
+# Plot 7: composition of users by city ---------------------------------
+
+# I. Income ----------------------------------
+
+plot7_renda <- pof_data %>% 
+  filter(Modo == 'Ride-hailing') %>% 
   group_by(RM) %>% 
   mutate(pop = n_distinct(ID_MORADOR)) %>% 
   group_by(RM, quintil_renda) %>% 
-  summarise(
-    share = mean(n()/pop)
-  )
-
-plot7b$names<-plot7b$RM
-
-plot7b<-
-  plot7b %>% ungroup()
-filter(
-  RM == 'Recife' |RM == 'São Paulo' |RM == 'Salvador' |
-    RM == 'Brasília' |RM == 'Porto Alegre' |RM == 'Rio de Janeiro' |
-    RM == 'Belo Horizonte' |RM == 'Fortaleza' |RM == 'Manaus' |
+  summarise(share = mean(n()/pop)) %>% 
+  mutate(names = RM) %>% 
+  ungroup() %>% 
+  filter(
+    RM == 'Recife'   |       RM == 'São Paulo'|    RM == 'Salvador' |
+    RM == 'Brasília' |       RM == 'Porto Alegre'| RM == 'Rio de Janeiro' |
+    RM == 'Belo Horizonte' | RM == 'Fortaleza' |   RM == 'Manaus' |
     RM == 'Campo Grande')
-p3<-
-  plot7b %>%   
+
+p1<-
+  plot7_renda %>%   
   ggplot(aes(quintil_renda,share))+
   geom_line(
-    data = plot7b %>% select(-RM),
+    data = plot7_renda %>% select(-RM),
     aes(quintil_renda,share, group = names),
     alpha = .5) +
   geom_line(aes(group = RM), color = '#ff0028' ,size=1.1) +
@@ -89,5 +39,44 @@ p3<-
   theme_minimal() +
   theme(panel.grid.minor = element_blank())+
   facet_wrap(~RM, nrow = 5)
-p24<-(p2|p3)
-p24+plot_annotation(tag_levels = 'A')
+
+# II. Age ----------------------------------
+
+plot7_idade <- pof_data %>% 
+  filter(Modo == 'Ride-hailing') %>% 
+  group_by(RM) %>% 
+  mutate(pop = n_distinct(ID_MORADOR)) %>% 
+  group_by(RM, faixa_etaria) %>% 
+  summarise(share = mean(n()/pop)) %>% 
+  mutate(names = RM) %>% 
+  ungroup() %>% 
+  filter(
+    RM == 'Recife'   |       RM == 'São Paulo'|    RM == 'Salvador' |
+      RM == 'Brasília' |       RM == 'Porto Alegre'| RM == 'Rio de Janeiro' |
+      RM == 'Belo Horizonte' | RM == 'Fortaleza' |   RM == 'Manaus' |
+      RM == 'Campo Grande')
+
+p2<-
+  plot7_idade %>% filter(faixa_etaria != '0-14') %>% 
+  ggplot(aes(faixa_etaria,share))+
+  geom_line(
+    data = plot7_idade %>% select(-RM) %>% filter(faixa_etaria != '0-14'),
+    aes(faixa_etaria,share, group = names),
+    alpha = .5) +
+  geom_line(aes(group = RM), color = 'purple' ,size=1.1) +
+  geom_point(aes(group = RM), color = 'purple' ,size=2.5) +
+  scale_y_continuous(labels = scales::percent)+
+  labs(x='Faixa Etária',y="% dos usuários de ride-hailing")+
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank())+
+  facet_wrap(~RM, nrow = 5)
+
+# Plot composition ---------------
+
+p<-(p1|p2)
+
+p+plot_annotation(tag_levels = 'A')
+
+ggsave("plot7.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+rm(list = ls())
+

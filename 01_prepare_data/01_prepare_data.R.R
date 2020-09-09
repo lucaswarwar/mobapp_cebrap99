@@ -2,7 +2,6 @@
 
 source("00_setup.R")
 
-
 ######## 1. Dowload and Clean data ----------------------------------------------------------
 
 #####################
@@ -136,7 +135,7 @@ total_despesas_transporte <-
   total_despesas_transporte %>% # Cria classes para os Estratos Urbano, Rural, RM e interior
   dplyr::mutate(
     ESTRATO_POF = as.numeric(ESTRATO_POF),
-    Estrato = case_when(
+    Estrato = dplyr::case_when(
     ESTRATO_POF == 1101 | ESTRATO_POF == 1102 | ESTRATO_POF == 1201 |
     ESTRATO_POF >= 1301 & ESTRATO_POF <= 1306 | ESTRATO_POF == 1401 & ESTRATO_POF == 1402 |
     ESTRATO_POF >= 1501 & ESTRATO_POF <= 1503 | ESTRATO_POF >= 1601 & ESTRATO_POF <= 1602 |
@@ -180,7 +179,7 @@ total_despesas_transporte <-
 total_despesas_transporte <- # Recodifica variáveis com informações dos indivíduos
   total_despesas_transporte %>%
   dplyr::mutate(
-    faixa_etaria = case_when(
+    faixa_etaria = dplyr::case_when(
       IDADE < 15       ~ "0-14",
       IDADE %in% 15:24 ~ "15-24",
       IDADE %in% 25:34 ~ "25-34", 
@@ -188,16 +187,16 @@ total_despesas_transporte <- # Recodifica variáveis com informações dos indiv
       IDADE %in% 50:64 ~ "50-64", 
       IDADE > 64 ~ "65+"),
     sexo = ifelse(SEXO == 1, "Homem", "Mulher"),
-    cor = case_when(
+    cor = dplyr::case_when(
       COR == 1 ~ "Branca",
       COR == 2 ~ "Preta",
       COR == 4 ~ "Parda",
       TRUE     ~ "Amarela, Indígena ou outra"),
-    casa = case_when(
+    casa = dplyr::case_when(
       tipo_dom == 1 ~ 'Casa',
       tipo_dom == 2 ~ 'Apartamento',
       TRUE          ~ 'Habitação Irregular'),
-    RM = case_when( 
+    RM = dplyr::case_when( 
       Estrato == "Interior Rural" ~ "Zona Rural",
       Estrato != "Interior Urbano" & UF == "SP" ~ "São Paulo",
       Estrato != "Interior Urbano" & UF == "RJ" ~ "Rio de Janeiro",
@@ -220,11 +219,10 @@ total_despesas_transporte <- # Recodifica variáveis com informações dos indiv
       TRUE                                      ~ "Brasil Urbano")
   )
 
-
 total_despesas_transporte <-
   total_despesas_transporte %>% 
   mutate(
-    Modo = case_when(
+    Modo = dplyr::case_when(
       COD_ITEM <= 2300401 | COD_ITEM >= 2300701 & COD_ITEM <= 2300901 |
       COD_ITEM >= 2301101 & COD_ITEM <= 2301301 | 
       COD_ITEM >= 2302301 & COD_ITEM <= 2303001 | 
@@ -241,7 +239,7 @@ total_despesas_transporte <-
 
 total_despesas_transporte <- total_despesas_transporte %>% as.data.table()
 
-total_despesas_transporte[, 
+total_despesas_transporte[, # Calcula decis de renda
  decil_renda := cut(x = renda_pc, breaks = Hmisc::wtd.quantile(
  x = renda_pc, weights = PESO_FINAL, probs = 0:10/10,
  type = c('quantile','(i-1)/(n-1)', 'i/(n+1)','i/n'),
@@ -265,22 +263,22 @@ pof_mobapp <- # filtra e seleciona variáveis
   renda_pc, faixa_etaria, sexo, cor, 
   UF, Estrato, Modo)
 
-write_rds(pof_mobapp, 'pof_mobapp.rds')
+readr::write_rds(pof_mobapp, 'pof_mobapp.rds')
 
 # Final dataset -----------------------
 
 mobapp_individuo <-
   pof_mobapp %>% 
-  group_by(
+  dplyr::group_by(
     ID_MORADOR, PESO_FINAL, renda_pc, Modo, 
     faixa_etaria, sexo, cor, UF, Estrato, RM,
     decil_renda, quintil_renda, casa, 
     aluguel_anual
   ) %>% 
-  summarise(
+  dplyr::summarise(
     gasto_avg = mean(valor_despesa),
     gasto_mensal = sum(valor_despesa*FATOR_ANUALIZACAO)/12,
     despesas_mes = sum(FATOR_ANUALIZACAO)/12
   )
 
-write_rds(mobapp_individuo, 'mobapp_individuo.rds')
+readr::write_rds(mobapp_individuo, 'mobapp_individuo.rds')
