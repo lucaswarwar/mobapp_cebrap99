@@ -9,6 +9,8 @@ pof_data <-
 
 # Plot 9: frequency vs cost by city ---------------------------------
 
+# frequency vs cost by estrato
+
 plot9 <-
 pof_data %>% 
   filter(Modo == 'Ride-hailing') %>% 
@@ -22,7 +24,6 @@ pof_data %>%
     frequencia = weighted.mean(despesas_mes,PESO_FINAL),
     custo = weighted.mean(gasto_avg,PESO_FINAL))
 
-View(plot9)
 
 plot9$Estrato <- factor(plot9$Estrato, levels = c('Capital','RM da Capital','Interior Urbano'))
 
@@ -31,5 +32,31 @@ plot9 %>%
   ggplot() +
   geom_point(aes(frequencia, custo, fill=Estrato), shape=21,size=3.5) +
   ggsci::scale_fill_locuszoom() +
+  theme_minimal() +
+  theme(legend.position = 'bottom')
+
+# frequency by rent -----------------------
+
+plot10 <-
+  pof_data %>% 
+  na.omit() %>% 
+  filter(Modo == 'Ride-hailing') %>% 
+  mutate(
+    aluguel_mensal = aluguel_anual/12,
+    aluguel = case_when(
+      aluguel_mensal < 500 ~ 'Até 500 reais',
+      aluguel_mensal < 1000 ~ '500 - 1.000 reais',
+      aluguel_mensal < 2500 ~ '1.000 - 2.500 reais',
+      aluguel_mensal <= 5000 ~ '2.500 - 5.000 reais',
+      aluguel_mensal > 5000 ~ 'Mais de 5.000 reais')) %>% 
+  group_by(aluguel, RM) %>% 
+  summarise(
+    frequencia = weighted.mean(despesas_mes,PESO_FINAL,na.rm = T),
+    gasto = weighted.mean(gasto_avg,PESO_FINAL,na.rm = T))
+
+plot10 %>% 
+  ggplot() +
+  geom_point(aes(frequencia, gasto, fill=aluguel), shape=21,size=3.5) +
+  scale_fill_viridis_d()+
   theme_minimal() +
   theme(legend.position = 'bottom')
