@@ -17,7 +17,7 @@ pof_data %>%
   mutate(
     frequencia_avg = weighted.mean(despesas_mes,PESO_FINAL),
     custo_avg = weighted.mean(gasto_avg,PESO_FINAL)) %>% 
-  group_by(UF, Estrato) %>% 
+  group_by(UF, Estrato, sexo) %>% 
   summarise(
     frequencia_avg = mean(frequencia_avg),
     custo_avg = mean(custo_avg),
@@ -27,12 +27,16 @@ pof_data %>%
 
 plot9$Estrato <- factor(plot9$Estrato, levels = c('Capital','RM da Capital','Interior Urbano'))
 
+p1<-
 plot9 %>%
   filter(Estrato != "Interior Rural") %>% 
   ggplot() +
-  geom_point(aes(frequencia, custo, fill=Estrato), shape=21,size=3.5) +
+  geom_jitter(aes(frequencia, custo, fill=Estrato), shape=21,size=3.5) +
   ggsci::scale_fill_locuszoom() +
   theme_minimal() +
+  scale_x_continuous(limits = c(4.5,20)) +
+  scale_y_continuous(limits = c(5,50))+
+  labs(x= "Nº médio de viagens por mês", y="Custo médio da viagem (R$)")+
   theme(legend.position = 'bottom')
 
 # frequency by rent -----------------------
@@ -54,9 +58,21 @@ plot10 <-
     frequencia = weighted.mean(despesas_mes,PESO_FINAL,na.rm = T),
     gasto = weighted.mean(gasto_avg,PESO_FINAL,na.rm = T))
 
+plot10$aluguel <- factor(plot10$aluguel, levels = c(
+  'Até 500 reais', '500 - 1.000 reais','1.000 - 2.500 reais',
+      '2.500 - 5.000 reais','Mais de 5.000 reais'))
+
+p2<-
 plot10 %>% 
   ggplot() +
-  geom_point(aes(frequencia, gasto, fill=aluguel), shape=21,size=3.5) +
-  scale_fill_viridis_d()+
+  geom_jitter(aes(frequencia, gasto, fill=aluguel), shape=21,size=3.5) +
+  
+  scale_fill_viridis_d(option = 'magma',direction = -1)+
   theme_minimal() +
-  theme(legend.position = 'bottom')
+  scale_x_continuous(limits = c(4.5,15)) +
+  scale_y_continuous(limits = c(7.5,50))+
+  labs(x= "Nº médio de viagens por mês", y="Custo médio da viagem (R$)",fill="Aluguel mensal")+
+  theme(legend.position = 'bottom') 
+
+p<-p1/p2
+p
