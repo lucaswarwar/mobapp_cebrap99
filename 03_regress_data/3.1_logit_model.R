@@ -29,8 +29,11 @@ logit_pof_clean <-
   filter(casa != 'Habitação Irregular') %>% 
   filter(cor!='Amarela, Indígena ou outra') %>% 
   filter(Estrato!='Interior Rural') %>% 
-  mutate(decil_renda=as.factor(decil_renda)) %>% 
   mutate(RM=factor(RM))
+
+logit_pof_clean$decil_renda <- factor(
+  logit_pof_clean$decil_renda,
+  levels = c("1",'2','3','4','5','6','7','8','9','10'))
 
 # Run logit model ------------------------------------------
 
