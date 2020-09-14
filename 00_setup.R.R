@@ -20,6 +20,7 @@ library(purrr)
 library(dplyr)
 library(hrbrthemes)
 library(beepr)
+library(magrittr)      # operacoes em strings
 
 # disable scientific notation
 options(scipen=10000)

@@ -1,6 +1,6 @@
 ### Setup
 
-source("00_setup.R")
+source("00_setup.R.R")
 
 ######## 1. Dowload and Clean data ----------------------------------------------------------
 
@@ -32,7 +32,7 @@ total_despesas_transporte <-
     QUADRO == "23"  # Transporte em geral
   ) %>% 
   dplyr::select(
-    UF, ESTRATO_POF, RENDA_TOTAL, QUADRO,
+    UF, ESTRATO_POF,COD_UPA, RENDA_TOTAL, QUADRO,
     COD_ITEM, PESO_FINAL, ID_DOM, ID_FAMILIA,
     ID_MORADOR, valor_despesa, FATOR_ANUALIZACAO
   )
@@ -257,11 +257,14 @@ pof_mobapp <- # filtra e seleciona variáveis
   total_despesas_transporte %>%
   dplyr::select(
   PESO_FINAL, ID_MORADOR, ID_FAMILIA,
+  COD_UPA, ESTRATO_POF,
   casa, aluguel_anual, RENDA_TOTAL,
   decil_renda, quintil_renda, RM,
   valor_despesa, FATOR_ANUALIZACAO,
   renda_pc, faixa_etaria, sexo, cor, 
   UF, Estrato, Modo)
+
+setwd("C:/Users/lucas/Desktop/R/mobapp_cebrap99/01_prepare_data")
 
 readr::write_rds(pof_mobapp, 'pof_mobapp.rds')
 
@@ -270,10 +273,9 @@ readr::write_rds(pof_mobapp, 'pof_mobapp.rds')
 mobapp_individuo <-
   pof_mobapp %>% 
   dplyr::group_by(
-    ID_MORADOR, PESO_FINAL, renda_pc, Modo, 
-    faixa_etaria, sexo, cor, UF, Estrato, RM,
-    decil_renda, quintil_renda, casa, 
-    aluguel_anual
+    ID_MORADOR, PESO_FINAL,  COD_UPA, ESTRATO_POF, renda_pc,
+    Modo, faixa_etaria, sexo, cor, UF, Estrato, RM,
+    decil_renda, quintil_renda, casa, aluguel_anual
   ) %>% 
   dplyr::summarise(
     gasto_avg = mean(valor_despesa),

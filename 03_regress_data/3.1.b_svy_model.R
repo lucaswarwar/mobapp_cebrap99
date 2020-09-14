@@ -5,18 +5,17 @@ logit_pof_clean <-
   mutate(
     control = stringr::str_sub(ID_MORADOR, 1,9))
 
-library(survey)
 
 pof_design <- svydesign( # need to add strata 
   ids = logit_pof_clean$control,
   weights = logit_pof_clean$PESO_FINAL,
   data = logit_pof_clean)
 
-model_svy <- svyglm(
-  formula = dummy_app ~ faixa_etaria+sexo+cor+casa+Estrato+decil_renda+RM, 
-  design = pof_design, family = 'binomial')
+model_svy_2 <- svyglm(
+  formula = ride_hailing ~ faixa_etaria+decil_renda,
+  design = pof_design_pos, family = 'binomial')
 
-summary_svy <- broom::tidy(model_svy)
+summary_svy2 <- broom::tidy(model_svy_2)
 summary_svy <-
   summary_svy %>% 
   mutate(odds_ratio = exp(coef(model_svy))) #odds ratio
