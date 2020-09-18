@@ -13,11 +13,11 @@ my_age_reg <- function( y){
   message(paste('working on, ', y))
   # y = 'ride-hailing' 
   
-  # select survey design for men or women
-  temp_design <- pof_design_pos
+  # select survey design 
+  temp_design <- pof_design_pos # here I can work on subsets of the survey design (gender, city...)
   
   # regression specification
-  specification <- paste0( y, "  ~ faixa_etaria + as.factor(quintil_renda)") # keep income fixed
+  specification <- paste0( y, "  ~ faixa_etaria + as.factor(decil_renda)") # keep income fixed
   
   # SURVEY glm model
   reg1 <- survey::svyglm(
@@ -60,7 +60,7 @@ my_sex_race_reg <- function( y){
   temp_design <- pof_design_pos
   
   # regression specification
-  specification <- paste0( y, "  ~ sex_race + as.factor(quintil_renda)") # keep income fixed
+  specification <- paste0( y, "  ~ sex_race + as.factor(decil_renda)") # keep income fixed
   
   # SURVEY glm model
   reg1 <- survey::svyglm(
@@ -103,7 +103,7 @@ my_strata_reg <- function( y){
   temp_design <- pof_design_pos
   
   # regression specification
-  specification <- paste0( y, "  ~ strata + as.factor(quintil_renda)") # keep income fixed
+  specification <- paste0( y, "  ~ strata + as.factor(decil_renda)") # keep income fixed
   
   # SURVEY glm model
   reg1 <- survey::svyglm(
@@ -148,7 +148,7 @@ my_city_reg <- function( y ){
   temp_design <- pof_design_pos
   
   # regression specification
-  specification <- paste0( y, "  ~ RM + as.factor(quintil_renda)") # keep income fixed
+  specification <- paste0( y, "  ~ RM + as.factor(decil_renda)") # keep income fixed
   
   # SURVEY glm model
   reg1 <- survey::svyglm(
@@ -194,7 +194,7 @@ my_city_reg2 <- function( y ){ #BR urbano as reference
   temp_design <- pof_design_pos
   
   # regression specification
-  specification <- paste0( y, "  ~ RM + as.factor(quintil_renda)") # keep income fixed
+  specification <- paste0( y, "  ~ RM + as.factor(decil_renda)") # keep income fixed
   
   # SURVEY glm model
   reg1 <- survey::svyglm(

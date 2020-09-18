@@ -1,10 +1,10 @@
 ### Setup ###
 
-source("00_setup.R.R")
+source("setup.R")
 
 ### Recover dataset #####################################################
 
-pof_data <- readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+pof_data <- readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 ### Prepare dataset for regression #####################################
 
@@ -37,10 +37,8 @@ pof_model <-
     sex_race = paste(sexo,cor,sep = "_"),
     faixa_etaria = ifelse(faixa_etaria == "15-24","0_15-24",faixa_etaria),
     cor = ifelse(cor == 'Branca', "0_Branca", cor),
-    RM = ifelse(
-      RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | RM == 'São Luís',
-      'Brasil Urbano', RM),
-    RM = ifelse(RM == 'Brasil Urbano', '0_POA',RM))
+    RM = ifelse(RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | RM == 'São Luís', 'Brasil Urbano', RM),
+    RM = ifelse(RM == 'Brasil Urbano', '0_Brasil_Urbano',RM))
 
 #### Create survey design ###############################################
 
