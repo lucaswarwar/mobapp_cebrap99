@@ -16,7 +16,11 @@ pof_model <-
     ride_hailing = ifelse(Modo=='Ride-hailing',1,0),
     transporte_pub = ifelse(Modo=='Transporte Público',1,0),
     transporte_ind = ifelse(Modo=='Transporte Privado',1,0),
-    taxi = ifelse(Modo=='Táxi',1,0)) 
+    taxi = ifelse(Modo=='Táxi',1,0),
+    frequencia = dplyr::case_when(
+      despesas_mes <= 5 ~ 'Baixa',
+      despesas_mes <= 9 ~ 'Média',
+      TRUE ~ 'Alta')) 
 
 #  Focus analysis on urban, adult people ---------
 
@@ -35,10 +39,10 @@ pof_model <-
   dplyr::mutate(
     strata = paste(casa,Estrato,sep = '_'),
     sex_race = paste(sexo,cor,sep = "_"),
-    faixa_etaria = ifelse(faixa_etaria == "15-24","0_15-24",faixa_etaria),
-    cor = ifelse(cor == 'Branca', "0_Branca", cor),
-    RM = ifelse(RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | RM == 'São Luís', 'Brasil Urbano', RM),
-    RM = ifelse(RM == 'Brasil Urbano', '0_Brasil_Urbano',RM))
+    sex_age = paste(sexo,faixa_etaria,sep = '_'),
+    RM = ifelse(
+      RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | 
+      RM == 'São Luís'| RM == 'Brasil Urbano', '0_Brasil Urbano', RM))
 
 #### Create survey design ###############################################
 

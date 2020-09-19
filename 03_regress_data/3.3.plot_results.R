@@ -1,6 +1,6 @@
 ### Setup ###
 
-source("00_setup.R.R")
+source("setup.R")
 
 ### Recover dataset #####################################################
 
