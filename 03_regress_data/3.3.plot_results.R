@@ -11,80 +11,103 @@ df_city <- data.table::fread('03_regress_data/results/df_city.csv')
 
 ### Plot results ----------
 
-df_age %>%
-  ggplot( aes(x = oddsratio, y = groups  )) +
-  geom_vline(aes(xintercept = 1), size = .25, linetype = 'dashed') +
+### Plot results ----------
+
+age <-
+  df_age[transport=='ride_hailing'] %>% 
+  ggplot( aes(x = odds_ratio, y = group  )) +
+  geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
   geom_linerange(
-    aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.05) +
-  geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1) +
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
+  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  theme(panel.grid.minor = element_blank()) +
-  scale_x_continuous(limits = c(0, 4), breaks = seq(-1, 4, 1)) +
+  scale_x_continuous(limits = c(0, 1.5), breaks = seq(-1, 1.5, .25)) +
   labs(
     title = 'Reference group: 15-24 years old',
     y = "", x = 'Odds ratio',
     color = 'Odds \nratio',fill = 'Odds \nratio') +
-  facet_wrap(~transport )
+  theme(
+    legend.background = element_rect(fill=NA),
+    legend.position = c('.9','.8'),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(size = rel(1)),
+    axis.text = element_text(size = rel(1)),
+    legend.title = element_text(size = rel(1)))
 
-ggsave('plot_age.png', path = '03_regress_data/img/')
 
-df_sex_race %>%
-  ggplot( aes(x = oddsratio, y = groups  )) +
-  geom_vline(aes(xintercept = 1), size = .25, linetype = 'dashed') +
+sex_age <-
+  df_sex_age[transport=='ride_hailing'] %>% 
+  ggplot( aes(x = odds_ratio, y = group  )) +
+  geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
   geom_linerange(
-    aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.05) +
-  geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1) +
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
+  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  theme(panel.grid.minor = element_blank()) +
-  scale_x_continuous(limits = c(0, 6.5), breaks = seq(-1, 6.5, 1)) +
+  scale_x_continuous(limits = c(0, 2), breaks = seq(-1, 2, .25)) +
   labs(
-    title = 'Reference group: Homem Branco',
+    title = 'Reference group: Men 15-24 years old',
     y = "", x = 'Odds ratio',
     color = 'Odds \nratio',fill = 'Odds \nratio') +
-  facet_wrap(~transport )
+  theme(
+    legend.background = element_rect(fill=NA),
+    legend.position = c('.9','.8'),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(size = rel(1)),
+    axis.text = element_text(size = rel(1)),
+    legend.title = element_text(size = rel(1)))
 
-ggsave('plot_sex_race.png', path = '03_regress_data/img/')
 
-df_strata %>%
-  ggplot( aes(x = oddsratio, y = groups  )) +
-  geom_vline(aes(xintercept = 1), size = .25, linetype = 'dashed') +
+sex_race <-
+  df_sex_race[transport=='ride_hailing'] %>% 
+  ggplot( aes(x = odds_ratio, y = group  )) +
+  geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
   geom_linerange(
-    aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.05) +
-  geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1) +
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
+  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  theme(panel.grid.minor = element_blank()) +
-  scale_x_continuous(limits = c(0, 6.5), breaks = seq(-1, 6.5, 1)) +
+  scale_x_continuous(limits = c(0, 3.5), breaks = seq(-1, 3.5, .5)) +
   labs(
-    title = 'Reference group: Apartamento Capital',
+    title = 'Reference group: Men White',
     y = "", x = 'Odds ratio',
     color = 'Odds \nratio',fill = 'Odds \nratio') +
-  facet_wrap(~transport )
+  theme(
+    legend.background = element_rect(fill=NA),
+    legend.position = c('.9','.8'),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(size = rel(1)),
+    axis.text = element_text(size = rel(1)),
+    legend.title = element_text(size = rel(1)))
 
-ggsave('plot_strata.png', path = '03_regress_data/img/')
-
-df_city %>%
-  filter(transport=='transporte_ind'|transport=='transporte_pub') %>%
-  ggplot( aes(x = oddsratio, y = groups  )) +
-  geom_vline(aes(xintercept = 1), size = .25, linetype = 'dashed') +
+race_age <-
+  df_race_age[transport=='ride_hailing'] %>% 
+  ggplot( aes(x = odds_ratio, y = group  )) +
+  geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
   geom_linerange(
-    aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.05) +
-  geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1) +
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
+  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  theme(panel.grid.minor = element_blank()) +
-  scale_x_continuous(limits = c(0, 5), breaks = seq(-1, 5, 1)) +
+  scale_x_continuous(limits = c(0, 3), breaks = seq(-1, 3, .5)) +
   labs(
-    title = 'Reference group: Porto Alegre',
+    title = 'Reference group: White 15-24',
     y = "", x = 'Odds ratio',
     color = 'Odds \nratio',fill = 'Odds \nratio') +
-  facet_wrap(~transport,nrow = 1 )
+  theme(
+    legend.background = element_rect(fill=NA),
+    legend.position = c('.9','.8'),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(size = rel(1)),
+    axis.text = element_text(size = rel(1)),
+    legend.title = element_text(size = rel(1)))
 
-ggsave('plot_city.png', path = '03_regress_data/img/')
+plot1 <-
+  (age + sex_age) / (sex_race + race_age)
 
+plot1

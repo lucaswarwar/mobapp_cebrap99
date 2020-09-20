@@ -20,7 +20,9 @@ pof_model <-
     frequencia = dplyr::case_when(
       despesas_mes <= 5 ~ 'Baixa',
       despesas_mes <= 9 ~ 'Média',
-      TRUE ~ 'Alta')) 
+      TRUE ~ 'Alta'))
+
+pof_model
 
 #  Focus analysis on urban, adult people ---------
 
@@ -40,9 +42,20 @@ pof_model <-
     strata = paste(casa,Estrato,sep = '_'),
     sex_race = paste(sexo,cor,sep = "_"),
     sex_age = paste(sexo,faixa_etaria,sep = '_'),
+    race_age = paste(cor,faixa_etaria,sep = "_"),
     RM = ifelse(
       RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | 
       RM == 'São Luís'| RM == 'Brasil Urbano', '0_Brasil Urbano', RM))
+
+pof_model$decil_renda <-
+  factor(
+    pof_model$decil_renda,
+    levels = c('1','2','3','4','5','6','7','8','9','10'))
+
+pof_model$frequencia <-
+  factor(
+    pof_model$frequencia,
+    levels = c('Baixa','Média','Alta'))
 
 #### Create survey design ###############################################
 
