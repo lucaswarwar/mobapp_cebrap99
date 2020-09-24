@@ -1,6 +1,8 @@
 ### Setup ###
 
 source("setup.R")
+source("colours.R")
+
 
 ### Recover dataset #####################################################
 
@@ -22,8 +24,10 @@ age <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
   geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels = scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels = scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 1.25), breaks = seq(-1, 1.25, .25)) +
   labs(
@@ -48,8 +52,10 @@ sex_age <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
   geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 2), breaks = seq(-1, 2, .25)) +
   labs(
@@ -80,8 +86,10 @@ sex_race <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
   geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 3.5), breaks = seq(-1, 3.5, .5)) +
   labs(
@@ -106,8 +114,10 @@ race_age <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
   geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 3), breaks = seq(-1, 3, .5)) +
   labs(
@@ -137,8 +147,10 @@ strata <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
   geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 1.5), breaks = seq(-1, 1.5, .25)) +
   labs(
@@ -149,9 +161,9 @@ strata <-
     legend.background = element_rect(fill=NA),
     legend.position = c('.9','.2'),
     panel.grid.minor = element_blank(),
-    axis.title = element_text(size = rel(1)),
-    axis.text = element_text(size = rel(1)),
-    legend.title = element_text(size = rel(1)))
+    axis.title = element_text(size = rel(.9)),
+    axis.text = element_text(size = rel(.9)),
+    legend.title = element_text(size = rel(.9)))
 
 city <-
   df_city[transport=='ride_hailing'] %>% 
@@ -161,8 +173,10 @@ city <-
   geom_linerange(
     aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.1) +
   geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
-  paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
-  paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
   scale_x_continuous(limits = c(0, 16), breaks = seq(-1, 16, 2)) +
   labs(
@@ -173,9 +187,9 @@ city <-
     legend.background = element_rect(fill=NA),
     legend.position = c('.9','.2'),
     panel.grid.minor = element_blank(),
-    axis.title = element_text(size = rel(1)),
-    axis.text = element_text(size = rel(1)),
-    legend.title = element_text(size = rel(1)))
+    axis.title = element_text(size = rel(.9)),
+    axis.text = element_text(size = rel(.9)),
+    legend.title = element_text(size = rel(.9)))
 
 plot2 <- strata+city
 plot2 + plot_annotation(tag_levels = 'A')

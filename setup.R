@@ -6,21 +6,41 @@ library(ggthemes)     # temas para visualizacao de dados
 library(sf)           # leitura e manipulacao de dados espaciais
 library(data.table)   # manipulacao de dados
 library(geobr)        # dados espaciais do brasil
-library(pbapply)  
-library(patchwork)    # progress bar
+library(pbapply)      # progress bar
 library(readr)        # rapida leitura de dados 
 library(tidyr)        # manipulacao de dados
 library(stringr)      # operacoes em strings
 library(lubridate)    # dados em data/horario
 library(mapview)      # visualizacao interativa dos dados
 library(RColorBrewer) # paleta de cores
-# library(extrafont)    # fontes de texto
+library(extrafont)    # fontes de texto
+#loadfonts()
+
 library(furrr)
 library(purrr)
 library(dplyr)
 library(hrbrthemes)
 library(beepr)
-library(magrittr)      # operacoes em strings
+library(datapasta)
+library(patchwork)
+library(sidrar)
+library(devtools)
+library(janitor)
+library(lemon)
+library(rio)
+library(scales)
+library(rlist)
+library(survey)
+library(srvyr)
+# devtools::install_github("lucasmation/microdadosBrasil")
+library(microdadosBrasil)
+library(Hmisc)
+library(forcats)
+library(gridExtra)
+library(ggplotify)
+library(grid)
+library(PNADcIBGE)
+
 
 # disable scientific notation
 options(scipen=10000)
@@ -39,3 +59,6 @@ data.table::setDTthreads(percent = 100)
 
 `%nin%` = Negate(`%in%`)
 `%nlike%` = Negate(`%like%`)
+
+
+  
