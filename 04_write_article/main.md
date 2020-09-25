@@ -1,4 +1,4 @@
-# **Introdução**
+# **1. Introdução**
 
 $1: Apresentação do tema
 
@@ -8,7 +8,7 @@ $3: Objetivo (como vai preencher gap + 3 perguntas) + relevância
 
 $4: Outline do artigo
 
-# **Metodologia e Bases de Dados**
+# **2. Metodologia e Bases de Dados**
 
 $1/2: POF: estrutura da pesquisa (orçamento), amostragem complexa, amplitude e abrangência, ineditismo das informações e da abordagem, variáveis disponíveis, fator de anualização
 
@@ -18,15 +18,15 @@ $4: Principais características da amostra em questão (apps)
 
 $5: Método empregado em cada pergunta (seção)
 
-# **Perfil Sociodemográfico**
+# **3. Perfil Sociodemográfico**
 
 $1: Objetivo da seção: entender as principais características dos usuários e como é a desigualdade/variação da adoção e frequência de uso de ride-hailing, comparando com a população que apresenta gastos com transporte em geral e com modais particulares (sobretudo transporte público e táxi convencional). A ideia é ser uma apresentação inicial, onde serão identificados os principais fenômenos que serão aprofundados nas seções b. E c.
 
 A seção é organizada em três blocos (socioeconômico, espacial e regional), cada um com dois itens (probabilidade de adoção/distribuição dos usuários e frequência de uso/padrão de consumo).
 
-## *Características socioeconômicas:*
+## *3.1. Características socioeconômicas:*
 
-### Probabilidade de adoção e distribuição dos usuários
+### 3.1.1. Probabilidade de adoção e distribuição dos usuários
 
 Embora a adoção de serviços de ride-hailing pela população brasileira ter sido um fenômeno rápido e crescente desde a chegada de tais plataformas no país em 20xx, na POF 2017-2018 apenas 2,4% dos indivíduos com despesas em transporte declararam também consumir algum serviço de ride-hailing. Esse montante se compara, por exemplo, com um percentual de 8% para os Estados Unidos avaliado por Sikder (2019) com dados da National Household Travel Survey de 2017. De tal modo, considerando o recorte temporal aliado aos fatos que - ao contrário da POF - a NHTS é uma pesquisa voltada exclusivamente aos comportamentos de deslocamento das pessoas e que o mercado de ride-hailing nos EUA é, via de regra, mais desenvolvido que o brasileiro, esse números não aparentam ser inconsistentes um com o outro.
 
@@ -62,7 +62,7 @@ Por fim, no painel D vê-se que praticamente metade (49,29%) dos usuários de ri
 
 Parágrafo concluindo + conversa com a lit. (?) Notas sobre demais características (escolaridade, ocupação, status) (?)
 
-### Frequência de uso e padrão de consumo
+### 3.1.2. Frequência de uso e padrão de consumo
 
 Além de demonstrarem probabilidades diferentes para a adoção de serviços de ride-hailing, uma vez usuários indivíduos de diferentes perfis sociodemográficos apresentam diferentes comportamentos em relação a seus padrões de consumo. Sendo assim, essa seção explora como variam a frequência de uso e o gasto dos usuários a depender de renda, idade, sexo e cor.
 
@@ -90,11 +90,11 @@ Combinando informações de valor médio e frequência de uso, pode-se estimar o
 
 Parágrafo concluindo + conversa com a lit. (?) Notas sobre demais características (escolaridade, ocupação, status) (?)
 
-##   *Características espaciais:*
+##   *3.2. Características espaciais:*
 
 Mostrou-se (Gráfico 1) que não são apenas os aspectos sociais, econômicos e demográficos da população - explorados na seção anterior - que influenciam a probabilidade de adoção de serviços de ride-hailing, mas também aspectos espaciais. Tal consideração é reflexo da própria concentração regional da renda e atividade econômica do Brasil e, de modo que as plataformas de ride-hailing se inserem nesse cenário pré-determinado, o desenvolvimento e adoção desses serviços é intrinsecamente influenciado por tais condições. 
 
-### Probabilidade de adoção e distribuição dos usuários
+### 3.2.1. Probabilidade de adoção e distribuição dos usuários
 
 A fim de avaliar como os usuários de ride-hailing estão distribuídos espacialmente, o Gráfico 4 combina as informações trazidas nos gráficos 1 e 2, porém considerando a inserção no espaço urbano: além do estrato geográfico (capital estadual, cidade de periferia de região metropolitana ou interior), difere também os indivíduos entre moradores de casa e apartamento. 
 
@@ -114,7 +114,7 @@ Novamente, os painéis B e C (análogos ao Gráfico 2) reiteram os resultados. A
 
 Mais uma vez, uma provável explicação para esse fenômeno é o fato que apartamentos e grandes centros urbanos - e ainda mais ambos concomitantemente - são indicadores consistentes de regiões de maior dinamismo econômico, do que resulta deslocamentos com distâncias menores, maior oferta de serviços de ride-hailing e renda média elevada, favorecendo a adoção de serviços de ride-hailing. Em contraste, casas tendem a ser localizadas em bairros residenciais menos adensados e cidades do interior têm níveis de atividade e dinamismo econômico relativamente menor, o que é traduzido em maiores deslocamentos, menor oferta de serviços de ride-hailing e menos incentivos para uso.
 
-### Frequência de uso e padrão de consumo
+### 3.2.2. Frequência de uso e padrão de consumo
 
 Assim como feito na seção anterior com aspectos sociodemográficos, avalia-se também a frequência de uso e padrões de consumo dos usuários de ride-hailing conforme a inserção no espaço urbano. Em linha com o observado em relação a probabilidade de adoção e distribuição dos usuários, têm-se que moradores de centros urbanos maiores e regiões mais densamente povoadas apresentam frequência de uso e gasto médio superiores. 
 
@@ -132,9 +132,9 @@ Mais uma vez, esse fenômeno se deve em grande medida ao maior dinamismo econôm
 
 Portanto, das características socioeconômicas dos usuários de ride-hailing, é relevante verificar também de que maneira eles estão distribuídos no espaço urbano. No entanto, haja visto a pluralidade de realidades distintas dentre as regiões brasileiras, é equivalentemente válido entender como os usuários se distribuem no território nacional. Essa análise pode fornecer informações de como os mesmos se comportam particulares a cada região, cidade, ou estrato urbano.
 
-## *Características regionais*
+## *3.3. Características regionais*
 
-### Probabilidade de adoção e distribuição dos usuários
+### 3.3.1. Probabilidade de adoção e distribuição dos usuários
 
 Outro ponto relevante de ser analisado é em quais lugares do território nacional se localizam os usuários de ride-hailing, de forma a identificar regiões, centros urbanos e cidades nos quais os mesmos se concentram ou, equivalentemente, áreas em que ainda não há adoção significativa de tais plataformas. Na seção anterior, mostrou-se que a ampla maioria dos usuários de ride-hailing eram moradores de capitais estaduais e suas respectivas regiões metropolitanas, de modo que tais zonas urbanas são o foco desta seção.
 
@@ -166,7 +166,7 @@ De maneira análoga, o painel B emula o painel A ilustrando, por sua vez, as dis
 
 Além da própria distribuição de renda e da pirâmide etária específica dessas cidades, as próprias características do espaço urbano podem ser mais ou menos ‘excludentes’: no caso em questão, Brasília é notadamente marcada por um concentração de renda elevada por conta dos altos salários da administração pública (ref.), o que é reforçado por uma zona urbana caracterizada por longas distâncias e gentrificação espacial entre estratos de renda (ref.). Pelo mesmo motivo, a população de Brasília tem idade média mais elevada do que a população em geral (ref.), explicando parte do comportamento observado no segundo painel. 
 
-### Frequência de uso e padrão de consumo
+### 3.3.2. Frequência de uso e padrão de consumo
 
 Assim como para os demais fatores, a frequência de uso e padrões de consumo também apresentam comportamentos distintos dentre as principais regiões metropolitanas - e, inclusive, podem ajudar a esclarecer as diferenças e desigualdades elencados acima.
 
@@ -188,11 +188,13 @@ $5: Panorama geral dos resultados, discussão com literatura e link com a próxi
 
 
 
-# **Determinantes de adoção/frequência de uso**
+# **4. Determinantes de adoção/frequência de uso**
 
-## *Modelo* 
+Objetivo da seção: testar empiricamente, por meio de um modelo estatístico, as análises feitas na seção anterior. Pergunta a ser respondida: pode-se afirmar categoricamente que as diferenças de utilização de serviços de ride-hailing se dá, ao menos em parte, conforme cor, sexo, idade, moradia etc
 
-## *Resultados*
+## *4.1. Modelo* 
+
+## *4.2. Resultados*
 
 ![](C:\Users\lucas\Desktop\R\mobapp_cebrap99\03_regress_data\img\plot_age_combo.png)
 

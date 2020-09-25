@@ -44,6 +44,31 @@ age <-
 
 ggsave('plot_age.png',path = '03_regress_data/img')
 
+income <-
+  df_income[transport=='ride_hailing'] %>% 
+  ggplot( aes(x = odds_ratio, y = reorder(group,odds_ratio)  )) +
+  geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
+  geom_linerange(
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
+  scale_fill_aop(palette = 'blue_red',discrete = F,labels = scales::percent) +
+  scale_colour_aop(palette = 'blue_red',discrete = F,labels = scales::percent) +
+  #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
+  theme_bw() +
+  scale_x_continuous(limits = c(0, 8.25), breaks = seq(-1, 8.25, .25)) +
+  labs(
+    title = 'Grupo de referência: 15-24 anos',
+    y = "", x = 'Odds ratio',
+    color = 'Odds \nratio',fill = 'Odds \nratio') +
+  theme(
+    legend.background = element_rect(fill=NA),
+    legend.position = c('.9','.2'),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(size = rel(1)),
+    axis.text = element_text(size = rel(1)),
+    legend.title = element_text(size = rel(1)))
+
 sex_age <-
   df_sex_age[transport=='ride_hailing'] %>% 
   dplyr::mutate(group = gsub("_"," ",group)) %>% 
@@ -167,20 +192,19 @@ strata <-
 
 city <-
   df_city[transport=='ride_hailing'] %>% 
-  dplyr::mutate(groups = gsub("_"," ",groups)) %>% 
-  ggplot( aes(x = oddsratio, y = reorder(groups,oddsratio)  )) +
+  ggplot( aes(x = odds_ratio, y = reorder(group,odds_ratio)  )) +
   geom_vline(aes(xintercept = 1), size = .5, linetype = 'dashed') +
   geom_linerange(
-    aes(xmax = int97.5, xmin = int2.5, color = oddsratio), size = 1.1) +
-  geom_point(aes(fill=oddsratio), size = 4,shape = 21) +
+    aes(xmax = int97.5, xmin = int2.5, color = odds_ratio), size = 1.1) +
+  geom_point(aes(fill=odds_ratio), size = 4,shape = 21) +
   scale_fill_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
   scale_colour_aop(palette = 'blue_red',discrete = F,labels=scales::percent) +
   #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  scale_x_continuous(limits = c(0, 16), breaks = seq(-1, 16, 2)) +
+  scale_x_continuous(limits = c(0, 2.5), breaks = seq(-1, 2.5, .25)) +
   labs(
-    title = 'Grupo de referência: Brasil Urbano',
+    title = 'Grupo de referência: Porto Alegre',
     y = "", x = 'Odds ratio',
     color = 'Odds \nratio',fill = 'Odds \nratio') +
   theme(

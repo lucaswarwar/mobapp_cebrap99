@@ -22,7 +22,6 @@ pof_model <-
       despesas_mes <= 9 ~ 'Média',
       TRUE ~ 'Alta'))
 
-pof_model
 
 #  Focus analysis on urban, adult people ---------
 
@@ -45,7 +44,8 @@ pof_model <-
     race_age = paste(cor,faixa_etaria,sep = "_"),
     RM = ifelse(
       RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | 
-      RM == 'São Luís'| RM == 'Brasil Urbano', '0_Brasil Urbano', RM))
+      RM == 'São Luís'| RM == 'Brasil Urbano', 'Brasil Urbano', 
+      ifelse(RM=='São Paulo', '0_SP', RM)))
 
 pof_model$decil_renda <-
   factor(
