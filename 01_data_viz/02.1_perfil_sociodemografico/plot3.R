@@ -1,11 +1,12 @@
 ######################
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
 pof_data <- 
-  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+  readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 # Plot 3: sociodemografics: frequency and consumption--------------------------
 
@@ -28,8 +29,8 @@ plot3_idade %>%
   geom_point(
     aes(frequencia, as.factor(faixa_etaria),
         fill = as.factor(quintil_renda)),
-    shape = 21, size = 4, alpha = 1) +
-  scale_fill_brewer(palette = 'Spectral') +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_fill_aop(palette = 'blue_red')+
   scale_x_continuous(limits = c(3,12)) +
   labs(fill = "Quintil de Renda") +
   theme_minimal() +
@@ -55,8 +56,8 @@ p1b <-
   geom_point(
     aes(frequencia, as.factor(sexo),
         fill = as.factor(quintil_renda)),
-    shape = 21, size = 4, alpha = 1) +
-  scale_fill_brewer(palette = 'Spectral') +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_fill_aop(palette = 'blue_red')+
   scale_x_continuous(limits = c(3,12)) +
   theme_minimal() +
   theme(
@@ -82,8 +83,8 @@ p1c <-
   geom_point(
     aes(frequencia, as.factor(cor),
         fill = as.factor(quintil_renda)),
-    shape = 21, size = 4, alpha = 1) +
-  scale_fill_brewer(palette = 'Spectral') +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_fill_aop(palette = 'blue_red')+
   scale_x_continuous(limits = c(3,12)) +
   theme_minimal() +
   labs(x="Nº médio de viagens por mês")+
@@ -100,21 +101,21 @@ s
 
 plot3b_sexo <-
   pof_data %>% 
-  group_by(quintil_renda, sexo, Modo) %>% 
+  group_by(sexo, Modo) %>% 
+  mutate(media = weighted.mean(gasto_avg, PESO_FINAL)) %>% 
+  group_by(quintil_renda, sexo, Modo,media) %>% 
   summarise(gasto = weighted.mean(gasto_avg, PESO_FINAL)) %>% 
   filter(Modo == 'Ride-hailing') %>% 
-  group_by(sexo) %>% 
-  mutate(media = mean(gasto)) %>% 
   ungroup()
 
 p2a <-
   plot3b_sexo %>% 
   ggplot(aes(as.factor(quintil_renda), gasto, group = sexo)) +
   geom_hline(aes(color = sexo,yintercept=media),linetype = 'dotted',size=1.1)+
-  geom_line(aes(color = sexo),size=1.1) +
-  geom_point(aes(fill = sexo), size=3.5, shape=21)+
-  ggsci::scale_color_locuszoom() +
-  ggsci::scale_fill_locuszoom() +
+  geom_line(aes(color = sexo),size=1) +
+  geom_point(aes(fill = sexo), size=3, shape=21)+
+  scale_colour_aop(palette = 'original')+
+  scale_fill_aop(palette = 'original')+
   labs(x='Quintil de Renda', y='Valor médio da viagem (R$)', color = 'Sexo', fill='Sexo') +
   theme_minimal()
 
@@ -122,11 +123,11 @@ p2a <-
 
 plot3b_cor <-
   pof_data %>% 
-  group_by(quintil_renda, cor, Modo) %>% 
+  group_by(cor, Modo) %>% 
+  mutate(media = weighted.mean(gasto_avg, PESO_FINAL)) %>% 
+  group_by(quintil_renda, cor, Modo,media) %>% 
   summarise(gasto = weighted.mean(gasto_avg, PESO_FINAL)) %>% 
   filter(Modo == 'Ride-hailing') %>% 
-  group_by(cor) %>% 
-  mutate(media = mean(gasto)) %>% 
   ungroup()
 
 p2b <-
@@ -134,10 +135,10 @@ plot3b_cor %>%
   filter(cor!='Amarela, Indígena ou outra') %>% 
   ggplot(aes(as.factor(quintil_renda), gasto, group = cor)) +
   geom_hline(aes(color = cor,yintercept=media),linetype = 'dotted',size=1.1)+
-  geom_line(aes(color = cor),size=1.1) +
-  geom_point(aes(fill = cor), size=3.5, shape=21)+
-  ggsci::scale_color_locuszoom() +
-  ggsci::scale_fill_locuszoom() +
+  geom_line(aes(color = cor),size=1) +
+  geom_point(aes(fill = cor), size=3, shape=21)+
+  scale_colour_aop(palette = 'original')+
+  scale_fill_aop(palette = 'original')+
   labs(x='Quintil de Renda', y='Valor médio da viagem (R$)', color = 'Cor', fill='Cor') +
   theme_minimal()
 
@@ -148,5 +149,5 @@ p[[1]] <- p[[1]] + plot_layout(tag_level = 'new')
 
 p + plot_annotation(tag_levels = c('A', '1'))
 
-ggsave("plot3.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot3.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls())

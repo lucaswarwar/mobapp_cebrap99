@@ -1,11 +1,12 @@
 ######################
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
 pof_data <- 
-  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+  readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 # Plot 7: composition of users by city ---------------------------------
 
@@ -32,8 +33,8 @@ p1<-
     data = plot7_renda %>% select(-RM),
     aes(quintil_renda,share, group = names),
     alpha = .5) +
-  geom_line(aes(group = RM), color = '#ff0028' ,size=1.1) +
-  geom_point(aes(group = RM), color = '#ff0028' ,size=2.5) +
+  geom_line(aes(group = RM), color = '#c88300' ,size=1.1) +
+  geom_point(aes(group = RM), color = '#c88300' ,size=2.5) +
   scale_y_continuous(labels = scales::percent)+
   labs(x='Quintil de Renda',y="% dos usuários de ride-hailing")+
   theme_minimal() +
@@ -63,8 +64,8 @@ p2<-
     data = plot7_idade %>% select(-RM) %>% filter(faixa_etaria != '0-14'),
     aes(faixa_etaria,share, group = names),
     alpha = .5) +
-  geom_line(aes(group = RM), color = 'purple' ,size=1.1) +
-  geom_point(aes(group = RM), color = 'purple' ,size=2.5) +
+  geom_line(aes(group = RM), color = '#00324a' ,size=1.1) +
+  geom_point(aes(group = RM), color = '#00324a' ,size=2.5) +
   scale_y_continuous(labels = scales::percent)+
   labs(x='Faixa Etária',y="% dos usuários de ride-hailing")+
   theme_minimal() +
@@ -77,6 +78,6 @@ p<-(p1|p2)
 
 p+plot_annotation(tag_levels = 'A')
 
-ggsave("plot7.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot7.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls())
 

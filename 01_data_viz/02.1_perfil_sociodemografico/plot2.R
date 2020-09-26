@@ -1,11 +1,12 @@
 ######################
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
 pof_data <- 
-  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+  readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 # Plot 2: sociodemografics of ride-hailing users---------------------------------
 
@@ -24,8 +25,8 @@ p1 <-
     aes(as.factor(decil_renda), share, group = Modo)) +
   geom_line(aes(color = Modo), size = 1.1) +
   geom_point(aes(fill = Modo), shape = 21, size = 3.5) +
-  ggsci::scale_color_locuszoom() +
-  ggsci::scale_fill_locuszoom() +
+scale_colour_aop() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   labs(x="Decil de Renda", y="% dos usuários") +
@@ -48,7 +49,7 @@ p2 <-
   ggplot(
     aes(as.factor(faixa_etaria), share)) +
   geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   labs(x="Faixa Etária", y="") +
@@ -72,7 +73,7 @@ p3 <-
   ggplot(
     aes(as.factor(sexo), share)) +
   geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   labs(x="Sexo", y="") +
@@ -96,7 +97,7 @@ p4 <-
   ggplot(
     aes(as.factor(cor), share)) +
   geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   labs(x="Cor", y="") +
@@ -109,5 +110,5 @@ p<- p1+(p2/p3/p4)
 
 p + plot_annotation(tag_levels = 'A')
 
-ggsave("plot2.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot2.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls())

@@ -1,11 +1,12 @@
 ######################
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
 pof_data <- 
-  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+  readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 # Plot 8: frequency and consumption by city ---------------------------------
 
@@ -23,7 +24,7 @@ plot8_frequencia <-
   filter(
     RM == 'Recife' |RM == 'São Paulo' |RM == 'Salvador' |
     RM == 'Brasília' |RM == 'Porto Alegre' |RM == 'Rio de Janeiro' |
-    RM == 'Belo Horizonte' |RM == 'Fortaleza' |RM == 'Curitiba' |
+    RM == 'Belo Horizonte' |RM == 'Fortaleza' |RM == 'Manaus' |
     RM == 'Campo Grande'|RM == 'Goiânia'|RM == 'Cuiabá')
 
 p1 <-
@@ -32,10 +33,10 @@ p1 <-
   geom_path(aes(group = RM),linetype = 'dotted') +
   geom_point(
     aes(fill = as.factor(Estrato)), shape = 21, size = 3.5, alpha = 1) +
-  geom_point(
-    aes(media, reorder(RM,media)),
-    shape = 21, size = 3.5, alpha = 1, fill = 'grey20') +
-  ggsci::scale_fill_locuszoom() +
+  #geom_point(
+   # aes(media, reorder(RM,media)),
+    #shape = 21, size = 3.5, alpha = 1, fill = 'grey20') +
+  scale_fill_aop() +
   labs(fill = "", y = "",x='Nº médio de viagens por mês') +
   theme_minimal() +
   theme(
@@ -59,7 +60,7 @@ plot8_gasto <-
   filter(
     RM == 'Recife' |RM == 'São Paulo' |RM == 'Salvador' |
       RM == 'Brasília' |RM == 'Porto Alegre' |RM == 'Rio de Janeiro' |
-      RM == 'Belo Horizonte' |RM == 'Fortaleza' |RM == 'Curitiba' |
+      RM == 'Belo Horizonte' |RM == 'Fortaleza' |RM == 'Manaus' |
       RM == 'Campo Grande'|RM == 'Goiânia'|RM == 'Cuiabá')
 
 p2 <-
@@ -68,11 +69,12 @@ p2 <-
   geom_path(aes(group = RM),linetype = 'dotted') +
   geom_point(
     aes(fill = as.factor(Estrato)), shape = 21, size = 3.5, alpha = 1) +
-  geom_point(
-    aes(media, reorder(RM,media)),
-    shape = 21, size = 3.5, alpha = 1, fill = 'grey20') +
-  ggsci::scale_fill_locuszoom() +
+  #geom_point(
+   # aes(media, reorder(RM,media)),
+    #shape = 21, size = 3.5, alpha = 1, fill = 'grey20') +
+  scale_fill_aop() +
   labs(fill = "", y = "",x='Custo médio da viagem (R$)') +
+  scale_x_continuous(limits = c(10,35)) +
   theme_minimal() +
   theme(
     panel.grid.minor = element_blank(),
@@ -86,5 +88,5 @@ p2 <-
 p<-p1|p2
 p+plot_annotation(tag_levels = 'A')
 
-ggsave("plot8.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot8.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls())

@@ -202,7 +202,7 @@ city <-
   #paletteer::scale_fill_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   #paletteer::scale_color_paletteer_c(palette = 'scico::berlin',direction = -1,labels=scales::percent) +
   theme_bw() +
-  scale_x_continuous(limits = c(0, 2.5), breaks = seq(-1, 2.5, .25)) +
+  scale_x_continuous(limits = c(0, 5), breaks = seq(-1, 5, .25)) +
   labs(
     title = 'Grupo de referência: Porto Alegre',
     y = "", x = 'Odds ratio',

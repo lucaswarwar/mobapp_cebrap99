@@ -1,11 +1,12 @@
 ######################
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
 pof_data <- 
-  readr::read_rds("01_prepare_data/mobapp_individuo.rds")
+  readr::read_rds("00_prepare_data/mobapp_individuo.rds")
 
 # Plot 4: ride-hailing in urban areas ------------------
 
@@ -26,9 +27,9 @@ plot4a %>%
   geom_path(linetype = 'dotted') +
   geom_point(
     aes(fill = as.factor(casa)),
-    shape = 21, size = 4.5, alpha = 1) +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.15)) +
-  ggsci::scale_fill_locuszoom() +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_x_continuous(labels = scales::percent, limits = c(0,.125)) +
+scale_fill_aop() +
   labs(fill = "", y = "", x = "% da população que consome ride-hailing") +
   theme_minimal() +
   theme(
@@ -53,7 +54,7 @@ p2 <-
   ggplot(
     aes(as.factor(Estrato), share)) +
   geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   scale_x_discrete(guide = guide_axis(n.dodge = 2))+
@@ -78,7 +79,7 @@ p3 <-
   ggplot(
     aes(as.factor(casa), share)) +
   geom_col(aes(fill = Modo)) +
-  ggsci::scale_fill_locuszoom() +
+scale_fill_aop() +
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   labs(x="", y="% dos usuários de ride-hailing") +
@@ -93,5 +94,5 @@ p[[2]] <- p[[2]] + plot_layout(tag_level = 'new')
 
 p + plot_annotation(tag_levels = c('A', '1'))
 
-ggsave("plot4.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot4.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls())

@@ -1,10 +1,11 @@
 ### Setup ###
 
-source("00_setup.R.R")
+source("setup.R")
+source("colours.R")
 
 ### Recover dataset ###
 
-pof_data <- readr::read_rds("01_prepare_data/pof_mobapp.rds")
+pof_data <- readr::read_rds("00_prepare_data/pof_mobapp.rds")
 
 # Plot 1: % of people that consumes ride-hailing ----------------------------------------------
 
@@ -26,9 +27,9 @@ plot1_renda  %>%
     aes(prop, as.factor(quintil_renda),group = quintil_renda), linetype = 'dotted') +
   geom_point(
     aes(prop, as.factor(quintil_renda), fill = as.factor(Estrato)),
-    shape = 21, size = 4.5, alpha = 1) +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.12)) +
-  ggsci::scale_fill_locuszoom() +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_x_continuous(labels = scales::percent, limits = c(0,.1)) +
+  scale_fill_aop() +
   labs(fill = "", y = "Quintil de Renda") +
   theme_minimal() +
   theme(
@@ -57,9 +58,9 @@ p2 <-
   geom_point(
     aes(prop, as.factor(faixa_etaria),
         fill = as.factor(Estrato)),
-    shape = 21, size = 4.5, alpha = 1) +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.12)) +
-  ggsci::scale_fill_locuszoom() +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_x_continuous(labels = scales::percent, limits = c(0,.1)) +
+  scale_fill_aop()+
   labs(fill = "", y = "Faixa Etária") +
   theme_minimal() +
   theme(
@@ -88,9 +89,9 @@ p3 <-
   geom_point(
     aes(prop, as.factor(sexo),
         fill = as.factor(Estrato)),
-    shape = 21, size = 4.5, alpha = 1) +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.12)) +
-  ggsci::scale_fill_locuszoom() +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_x_continuous(labels = scales::percent, limits = c(0,.1)) +
+  scale_fill_aop() +
   labs(fill = "", y = "Sexo") +
   theme_minimal() +
   theme(
@@ -119,9 +120,9 @@ p4 <-
   geom_point(
     aes(prop, as.factor(cor),
         fill = as.factor(Estrato)),
-    shape = 21, size = 4.5, alpha = 1) +
-  scale_x_continuous(labels = scales::percent, limits = c(0,.12)) +
-  ggsci::scale_fill_locuszoom() +
+    shape = 21, size = 3.5, alpha = 1) +
+  scale_x_continuous(labels = scales::percent, limits = c(0,.1)) +
+  scale_fill_aop() +
   labs(fill = "", y = "Cor", x="% do total") +
   theme_minimal() +
   theme(
@@ -136,6 +137,6 @@ p <- p1/p2/p3/p4
 
 p + patchwork::plot_annotation(tag_levels = "A")
 
-ggsave("plot1.png", path = "02_plot_data/02.1_perfil_sociodemografico/img")
+ggsave("plot1.png", path = "01_data_viz/02.1_perfil_sociodemografico/img")
 rm(list = ls()) 
 
