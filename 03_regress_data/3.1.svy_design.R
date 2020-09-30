@@ -42,6 +42,9 @@ pof_model <-
     sex_race = paste(sexo,cor,sep = "_"),
     sex_age = paste(sexo,faixa_etaria,sep = '_'),
     race_age = paste(cor,faixa_etaria,sep = "_"),
+    sex_strata = paste(sexo,Estrato,sep = '_'),
+    age_strata = paste(faixa_etaria,Estrato,sep = '_'),
+    race_strata = paste(cor,Estrato,sep = '_'),
     RM = ifelse(
       RM == 'Maceió' | RM == 'Vitória' | RM == 'Florianópolis' | 
       RM == 'São Luís'| RM == 'Brasil Urbano', 'Brasil Urbano', 
