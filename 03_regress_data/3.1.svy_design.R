@@ -16,22 +16,38 @@ pof_model <-
     ride_hailing = ifelse(Modo=='Ride-hailing',1,0),
     transporte_pub = ifelse(Modo=='Transporte Público',1,0),
     transporte_ind = ifelse(Modo=='Transporte Privado',1,0),
-    taxi = ifelse(Modo=='Táxi',1,0),
-    frequencia = dplyr::case_when(
-      despesas_mes <= 5 ~ 'Baixa',
-      despesas_mes <= 9 ~ 'Média',
-      TRUE ~ 'Alta'))
-
+    taxi = ifelse(Modo=='Táxi',1,0)
+    #, frequencia = dplyr::case_when(
+    #  despesas_mes <= 5 ~ 'Baixa',
+    #  despesas_mes <= 9 ~ 'Média',
+    #  TRUE ~ 'Alta')
+    )
 
 #  Focus analysis on urban, adult people ---------
 
 pof_model <-
-  pof_model %>% 
-  na.omit() %>% 
+  pof_model %>% na.omit() %>% 
   dplyr::filter(faixa_etaria!='0-14') %>% 
   dplyr::filter(casa != 'Habitação Irregular') %>% 
-  dplyr::filter(cor!='Amarela, Indígena ou outra') %>% 
+  #dplyr::filter(cor!='Amarela, Indígena ou outra') %>% 
   dplyr::filter(Estrato!='Interior Rural')
+
+# Consider only strata with ride-hailing availability --------------------
+
+#pof_model %>% 
+#  dplyr::filter(Modo=='Ride-hailing') %>% 
+#  dplyr::group_by(Modo) %>% 
+#  dplyr::summarise(n=n_distinct(ESTRATO_POF))
+#
+#ride_hailing <- 
+#  pof_model %>% 
+#  dplyr::filter(Modo=='Ride-hailing')
+#
+#estratos <- unique(ride_hailing$ESTRATO_POF)
+
+#pof_model <-
+#  pof_model %>% 
+#  dplyr::filter(ESTRATO_POF %in% estratos)
 
 # Add reference groups and recode variables ---------
 
@@ -55,10 +71,10 @@ pof_model$decil_renda <-
     pof_model$decil_renda,
     levels = c('1','2','3','4','5','6','7','8','9','10'))
 
-pof_model$frequencia <-
-  factor(
-    pof_model$frequencia,
-    levels = c('Baixa','Média','Alta'))
+#pof_model$frequencia <-
+#  factor(
+#    pof_model$frequencia,
+#    levels = c('Baixa','Média','Alta'))
 
 #### Create survey design ###############################################
 

@@ -342,7 +342,7 @@ df_age <- purrr::map(.x= transport, .f=my_age_reg) %>% data.table::rbindlist()
 #write.csv(df_age,'03_regress_data/results/df_age.csv')
 
 # income 
-df_income <- purrr::map(.x= transport, .f=my_income_reg) %>% data.table::rbindlist()
+#df_income <- purrr::map(.x= transport, .f=my_income_reg) %>% data.table::rbindlist()
 #write.csv(df_age,'03_regress_data/results/df_age.csv')
 
 # age + sex 
@@ -355,15 +355,15 @@ df_sex_race <- purrr::map(.x= transport, .f=my_sex_race_reg) %>% data.table::rbi
 
 # age + strata
 df_age_strata <- purrr::map(.x= transport, .f=my_age_strata_reg) %>% data.table::rbindlist()
-write.csv(df_age_strata,'03_regress_data/results/df_age_strata.csv')
+#write.csv(df_age_strata,'03_regress_data/results/df_age_strata.csv')
 
 # sex + strata
 df_sex_strata <- purrr::map(.x= transport, .f=my_sex_strata_reg) %>% data.table::rbindlist()
-write.csv(df_sex_strata,'03_regress_data/results/df_sex_strata.csv')
+#write.csv(df_sex_strata,'03_regress_data/results/df_sex_strata.csv')
 
 # race + strata
 df_race_strata <- purrr::map(.x= transport, .f=my_race_strata_reg) %>% data.table::rbindlist()
-write.csv(df_race_strata,'03_regress_data/results/df_race_strata.csv')
+#write.csv(df_race_strata,'03_regress_data/results/df_race_strata.csv')
 
 # age + race
 #df_race_age <- purrr::map(.x= transport, .f=my_race_age_reg) %>% data.table::rbindlist()
